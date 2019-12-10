@@ -1,6 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import axios from 'axios';
 import CryptoCurrency from './CryptoCurrency';
+import Error from './Error';
 
 const Form = () => {
 
@@ -35,6 +36,7 @@ const Form = () => {
 
     return (
         <form onSubmit={ handleSubmit }>
+            { error ? <Error message="All fields are required"/> : null }
             <div className="row">
                 <label>Choose Badge</label>
                 <select className="u-full-width" onChange={ e => { setBadget(e.target.value)} }>
