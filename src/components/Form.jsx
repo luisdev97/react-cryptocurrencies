@@ -1,13 +1,19 @@
 import React,{ useState, useEffect } from 'react';
 import axios from 'axios';
+import CryptoCurrency from './CryptoCurrency';
+
 const Form = () => {
 
-    const [ cryptocurrencias, setCryptocurrencies ] = useState([]);
+    const [ cryptoCurrencies, setCryptoCurrencies ] = useState([]);
     
     const getApiInfo = async() => {
        const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD';
        const res = await axios.get(url);
-        setCryptocurrencies(res.data.Data);
+       setCryptoCurrencies(res.data.Data);
+    }
+
+    const renderCryptocurrencies = cryptoCurrencies => {
+        return cryptoCurrencies.map(cryptoCurrency => <CryptoCurrency key={ cryptoCurrency.CoinInfo.Id} cryptoCurrency={ cryptoCurrency }/> )
     }
 
     useEffect(() => {
@@ -30,6 +36,7 @@ const Form = () => {
                 <label>Choose Criptocurrency</label>
                 <select className="u-full-width">
                     <option value="">Choose criptocurrency</option>
+                    { renderCryptocurrencies(cryptoCurrencies) }
 
                 </select>
             </div>
