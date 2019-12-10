@@ -3,10 +3,10 @@ import axios from 'axios';
 import CryptoCurrency from './CryptoCurrency';
 import Error from './Error';
 
-const Form = () => {
+const Form = ({ setSelectBadge, setSelectCryptoCurrency }) => {
 
     const [ cryptoCurrencies, setCryptoCurrencies ] = useState([]);
-    const [ badget, setBadget ] = useState('');
+    const [ badge, setBadge ] = useState('');
     const [ cryptoCurrency, setCryptoCurrency ] = useState('');
     const [ error, setError ] = useState(false);
     
@@ -27,9 +27,12 @@ const Form = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        if(cryptoCurrency === '' || badget === '')
+        if(cryptoCurrency === '' || badge === '')
             setError(true);
-        else
+        else{
+            setSelectBadge(badge)
+            setSelectCryptoCurrency(cryptoCurrency);
+        }
             setError(false);
     }
 
@@ -39,7 +42,7 @@ const Form = () => {
             { error ? <Error message="All fields are required"/> : null }
             <div className="row">
                 <label>Choose Badge</label>
-                <select className="u-full-width" onChange={ e => { setBadget(e.target.value)} }>
+                <select className="u-full-width" onChange={ e => { setBadge(e.target.value)} }>
                     <option value="">Choose badge</option>
                     <option value="USD">Dolar</option>
                     <option value="EUR">Euro</option>
